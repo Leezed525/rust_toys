@@ -1,4 +1,6 @@
 use std::env;
+use clap::Parser;
+use minigrep::parser;
 
 
 #[derive(Debug)]
@@ -54,9 +56,12 @@ impl Config {
 }
 
 fn main() {
-    let args: Vec<String> = env::args().collect();
-    let config = Config::mini_grep_config(&args);
+    let args = parser::MiniGrepConfig::parse();
 
-    dbg!(config);
-    println!("Hello, world!");
+    dbg!(args);
+    // let args: Vec<String> = env::args().collect();
+    // let config = Config::mini_grep_config(&args);
+    //
+    // dbg!(config);
+    // println!("Hello, world!");
 }
