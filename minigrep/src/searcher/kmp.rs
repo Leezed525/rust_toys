@@ -48,7 +48,9 @@ impl Searcher for KMP {
                 //无符号整数做减法需要用checked_sub防止变成负数
                 if let Some(start) = i.checked_sub(j - 1) {
                     result.push(start);
-                    j = next[j - 1];
+                    //经过我检查linux的grep功能，linux的grep功能是从0开始的
+                    // j = next[j - 1];
+                    j = 0;
                 }
             }
         }
