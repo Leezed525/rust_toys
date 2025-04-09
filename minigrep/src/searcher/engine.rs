@@ -27,13 +27,20 @@ impl Engine {
     }
 
     pub fn run(&self) {
-        let file = std::fs::File::open(&self.filename).unwrap();
+        let file = std::fs::File::open(&self.filename).expect("Failed to open file");
         let reader = std::io::BufReader::new(file);
         for line in reader.lines() {
             let line = line.unwrap();
-            if self.searcher.search(&line) {
-                println!("{}", line);
+            let search_result = self.searcher.search(&line);
+            // 这里可以根据需要输出搜索结果
+            // 比如输出搜索到的下标
+            if search_result.len() > 0 {
+                
+                println!("Found at: {:?}", search_result);
             }
+            // if self.searcher.search(&line) {
+            //     println!("{}", line);
+            // }
         }
     }
 }

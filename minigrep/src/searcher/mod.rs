@@ -1,4 +1,4 @@
-pub mod searcher;
+mod searcher;
 mod kmp;
 mod engine;
 

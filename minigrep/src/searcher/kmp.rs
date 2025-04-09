@@ -31,9 +31,10 @@ impl KMP {
 
 
 impl Searcher for KMP {
-    fn search(&self, search: &str) -> bool {
+    fn search(&self, search: &str) -> Vec<usize> {
         let search = search.chars().collect::<Vec<char>>();
         let pattern = &self.pattern.chars().collect::<Vec<char>>();
+        let mut result = Vec::new();
         let mut j = 0;
         let next = &self.next;
         for i in 0..search.len() {
@@ -44,9 +45,13 @@ impl Searcher for KMP {
                 j += 1;
             }
             if j == pattern.len() {
-                return true;
+                //无符号整数做减法需要用checked_sub防止变成负数
+                if let Some(start) = i.checked_sub(j - 1) {
+                    result.push(start);
+                    j = next[j - 1];
+                }
             }
         }
-        false
+        result
     }
 }
